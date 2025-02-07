@@ -42,7 +42,9 @@ import { BsNewspaper } from "react-icons/bs";
 import { MdSkipNext } from "react-icons/md";
 import { MdSkipPrevious } from "react-icons/md";
 
-import PuzzleGame from "../GamePuzzle"
+import PuzzleGame from "../GamePuzzle";
+
+import { Environment } from '@react-three/drei';
 
 // Extend THREE with custom geometries
 extend({ PlaneGeometry: THREE.PlaneGeometry, BoxGeometry: THREE.BoxGeometry });
@@ -571,6 +573,7 @@ const modelsConfig = useMemo(
                         // colorSpace: THREE.LinearSRGBColorSpace, // Use this instead of `sRGBEncoding`
                         antialias: true 
                     }}>
+                        <Environment files="/hdri.jpg" background />
                         <Suspense fallback={null}>
                                 {/* Môi trường */}
 

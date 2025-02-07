@@ -5,7 +5,7 @@ import "./PopUpHowToMove.css";
 
 const PopUpHowToMove = ({ open, handleClose }) => {
     return (
-        <Modal open={open} onClose={() => handleClose('free')}>
+        <Modal open={open} onClose={() => handleClose('free')} BackdropProps={{ invisible: true }}>
             <Box 
                 sx={{
                     position: 'absolute',
@@ -13,25 +13,42 @@ const PopUpHowToMove = ({ open, handleClose }) => {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: {
-                        xs: '90%', // 90% width on extra small screens
-                        sm: '80%', // 80% width on small screens
+                        xs: '95%', // 90% width on extra small screens
+                        sm: '90%', // 80% width on small screens
                         md: '50%',  //
                     },
                     maxHeight: '90%',
                     overflow: 'auto',
-                    borderRadius: '10px',
                     p: 4,
                     textAlign: 'center',
-                    opacity: 0,
                     animation: 'slideDown 0.5s forwards, fadeIn 0.5s forwards',
-                    color: 'white'
+                    color: 'white',
+                    display: 'flex',
+                    flexDirection: 'column',
                 }}
             >
-                <h2 style={{ marginBottom: '40px' }}>Hướng dẫn sử dụng</h2>
-                <div className='popUpMove__content' style={{ marginBottom: '40px' }}>
-                    <img src='/NTST/HDSD.png' className='popUpMove__content__content__inner__img'/>
+                {/* <div style={{ 
+                    position: 'absolute',
+                    backgroundColor: '#2E2E2E',
+                    top: '0',
+                    left: '0',
+                    width: '100%',
+                    opacity: '0.8',
+                    display: 'flex',
+                    height: '90vh',
+                }}>
+
+                </div> */}
+                <div className='popUpMove__content1' style={{ marginBottom: '40px', position: 'relative' }}>
+                    <img src='/NTST/HDSD1.png' className='popUpMove__content__content__inner__img'/>
                 </div>
-                <Button 
+                <div className='popUpMove__content2' style={{ marginBottom: '40px', position: 'relative' }}>
+                    <img src='/NTST/HDSD2.png' className='popUpMove__content__content__inner__img'/>
+                </div>
+                <div className='popUpMove__content3' style={{ marginBottom: '40px', position: 'relative' }}>
+                    <img src='/NTST/HDSD3.png' className='popUpMove__content__content__inner__img'/>
+                </div>
+                <Button
                     onClick={() => handleClose('update')} 
                     className='button1'
                 >

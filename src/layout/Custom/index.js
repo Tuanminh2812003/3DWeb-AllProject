@@ -44,6 +44,8 @@ import { BsNewspaper } from "react-icons/bs";
 import { MdSkipNext } from "react-icons/md";
 import { MdSkipPrevious } from "react-icons/md";
 
+import { Environment } from '@react-three/drei';
+
 import PuzzleGame from "../GamePuzzle"
 
 // Extend THREE with custom geometries
@@ -582,6 +584,7 @@ const modelsConfig = useMemo(
                         // colorSpace: THREE.LinearSRGBColorSpace, // Use this instead of `sRGBEncoding`
                         antialias: true // Sửa lại cú pháp ở đây
                     }}>
+                        <Environment files="/hdri.jpg" background />
                         <Suspense fallback={null}>
                                 {/* Môi trường */}
 
