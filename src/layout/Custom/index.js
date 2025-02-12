@@ -2,6 +2,7 @@ import React, { useState, lazy, Suspense, useEffect, useRef, useCallback, useMem
 import { Canvas, extend, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three'
 import { OrbitControls } from '@react-three/drei';
+import RectAreaLight from '../../components/RectAreaLight';
 
 // camera và move
 import { CameraProvider } from '../../helpers/CameraContext';
@@ -43,6 +44,10 @@ import { PiListStarFill } from "react-icons/pi";
 import { BsNewspaper } from "react-icons/bs";
 import { MdSkipNext } from "react-icons/md";
 import { MdSkipPrevious } from "react-icons/md";
+import { FaChevronUp } from "react-icons/fa6";
+import { FaChevronDown } from "react-icons/fa";
+import { FaChevronLeft } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 
 import { Environment } from '@react-three/drei';
 
@@ -784,7 +789,7 @@ const modelsConfig = useMemo(
                                     onTouchEnd={() => handleControl('forward', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretUp />
+                                    <FaChevronUp />
                                 </button>
                             </div>
                             <div className='bottom'>
@@ -795,7 +800,7 @@ const modelsConfig = useMemo(
                                     onTouchEnd={() => handleControl('rotateLeft', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretLeft />
+                                    <FaChevronLeft />
                                 </button>
                                 <button
                                     onMouseDown={() => handleControl('backward', true)}
@@ -804,7 +809,7 @@ const modelsConfig = useMemo(
                                     onTouchEnd={() => handleControl('backward', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretDown />
+                                    <FaChevronDown />
                                 </button>
                                 <button
                                     onMouseDown={() => handleControl('rotateRight', true)}
@@ -813,7 +818,7 @@ const modelsConfig = useMemo(
                                     onTouchEnd={() => handleControl('rotateRight', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretRight />
+                                    <FaChevronRight />
                                 </button>
                             </div>
                         </div>

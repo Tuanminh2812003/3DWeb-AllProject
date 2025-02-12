@@ -26,16 +26,16 @@ import PopUpListModel from '../../components/PopUpListModel';
 // icon
 import { MdOutlineZoomOutMap } from "react-icons/md";
 import { MdOutlineZoomInMap } from "react-icons/md";
-import { FaCaretLeft } from "react-icons/fa";
-import { FaCaretRight } from "react-icons/fa";
-import { FaCaretUp } from "react-icons/fa";
-import { FaCaretDown } from "react-icons/fa";
 import { RiDragMoveFill } from "react-icons/ri";
 import { SiAwesomelists } from "react-icons/si";
 import { PiListStarFill } from "react-icons/pi";
 import { BsNewspaper } from "react-icons/bs";
 import { MdSkipNext } from "react-icons/md";
 import { MdSkipPrevious } from "react-icons/md";
+import { FaChevronUp } from "react-icons/fa6";
+import { FaChevronDown } from "react-icons/fa";
+import { FaChevronLeft } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 
 // Extend THREE with custom geometries
 extend({ PlaneGeometry: THREE.PlaneGeometry, BoxGeometry: THREE.BoxGeometry });
@@ -669,7 +669,7 @@ function Home(){
                                     onTouchEnd={() => handleControl('forward', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretUp />
+                                    <FaChevronUp />
                                 </button>
                             </div>
                             <div className='bottom'>
@@ -680,7 +680,7 @@ function Home(){
                                     onTouchEnd={() => handleControl('rotateLeft', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretLeft />
+                                    <FaChevronLeft />
                                 </button>
                                 <button
                                     onMouseDown={() => handleControl('backward', true)}
@@ -689,7 +689,7 @@ function Home(){
                                     onTouchEnd={() => handleControl('backward', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretDown />
+                                    <FaChevronDown />
                                 </button>
                                 <button
                                     onMouseDown={() => handleControl('rotateRight', true)}
@@ -698,7 +698,7 @@ function Home(){
                                     onTouchEnd={() => handleControl('rotateRight', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretRight />
+                                    <FaChevronRight />
                                 </button>
                             </div>
                         </div>

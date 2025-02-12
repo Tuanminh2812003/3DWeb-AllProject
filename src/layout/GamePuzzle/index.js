@@ -1,21 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDrag, useDrop } from 'react-dnd';
 
-const piecesData = [
-  { id: 1, image: '/game/image1.png', x: 400, y: 0, correctPosition: { x: 0, y: 100 } },
-  { id: 2, image: '/game/image2.jfif', x: 500, y: 0, correctPosition: { x: 200, y: 0 } },
-  { id: 3, image: '/game/image3.png', x: 400, y: 100, correctPosition: { x: 200, y: 100 } },
-  { id: 4, image: '/game/image4.png', x: 500, y: 100, correctPosition: { x: 100, y: 200 } },
-  { id: 5, image: '/game/image5.png', x: 400, y: 200, correctPosition: { x: 100, y: 0 } },
-  { id: 6, image: '/game/image6.png', x: 500, y: 200, correctPosition: { x: 100, y: 100 } },
-  { id: 7, image: '/game/image7.png', x: 400, y: 300, correctPosition: { x: 0, y: 0 } },
-  { id: 8, image: '/game/image8.png', x: 500, y: 300, correctPosition: { x: 200, y: 200 } },
-  { id: 9, image: '/game/image9.png', x: 450, y: 400, correctPosition: { x: 0, y: 200 } },
+const piecesDataDesktop = [
+  { id: 1, image: '/game/4.png', x: -300, y: 0, correctPosition: { x: 0, y: 100 } },
+  { id: 2, image: '/game/3.png', x: -400, y: 0, correctPosition: { x: 200, y: 0 } },
+  { id: 3, image: '/game/6.png', x: -300, y: 100, correctPosition: { x: 200, y: 100 } },
+  { id: 4, image: '/game/8.png', x: -400, y: 100, correctPosition: { x: 100, y: 200 } },
+  { id: 5, image: '/game/2.png', x: -300, y: 200, correctPosition: { x: 100, y: 0 } },
+  { id: 6, image: '/game/5.png', x: -400, y: 200, correctPosition: { x: 100, y: 100 } },
+  { id: 7, image: '/game/1.png', x: -300, y: 300, correctPosition: { x: 0, y: 0 } },
+  { id: 8, image: '/game/9.png', x: -400, y: 300, correctPosition: { x: 200, y: 200 } },
+  { id: 9, image: '/game/7.png', x: -300, y: 400, correctPosition: { x: 0, y: 200 } },
+];
+const piecesDataTablet = [
+  { id: 1, image: '/game/4.png', x: -240, y: 0, correctPosition: { x: 0, y: 80 } },
+  { id: 2, image: '/game/3.png', x: -320, y: 0, correctPosition: { x: 160, y: 0 } },
+  { id: 3, image: '/game/6.png', x: -240, y: 80, correctPosition: { x: 160, y: 80 } },
+  { id: 4, image: '/game/8.png', x: -320, y: 80, correctPosition: { x: 80, y: 160 } },
+  { id: 5, image: '/game/2.png', x: -240, y: 160, correctPosition: { x: 80, y: 0 } },
+  { id: 6, image: '/game/5.png', x: -320, y: 160, correctPosition: { x: 80, y: 80 } },
+  { id: 7, image: '/game/1.png', x: -240, y: 240, correctPosition: { x: 0, y: 0 } },
+  { id: 8, image: '/game/9.png', x: -320, y: 240, correctPosition: { x: 160, y: 160 } },
+  { id: 9, image: '/game/7.png', x: -240, y: 320, correctPosition: { x: 0, y: 160} },
+];
+const piecesDataMobile = [
+  { id: 1, image: '/game/4.png', x: -50, y: 200, correctPosition: { x: 0, y: 50 } },
+  { id: 2, image: '/game/3.png', x: 0, y: 200, correctPosition: { x: 100, y: 0 } },
+  { id: 3, image: '/game/6.png', x: 50, y: 200, correctPosition: { x: 100, y: 50 } },
+  { id: 4, image: '/game/8.png', x: 100, y: 200, correctPosition: { x: 50, y: 100 } },
+  { id: 5, image: '/game/2.png', x: 150, y: 200, correctPosition: { x: 50, y: 0 } },
+  { id: 6, image: '/game/5.png', x: -50, y: 250, correctPosition: { x: 50, y: 50 } },
+  { id: 7, image: '/game/1.png', x: 0, y: 250, correctPosition: { x: 0, y: 0 } },
+  { id: 8, image: '/game/9.png', x: 50, y: 250, correctPosition: { x: 100, y: 100 } },
+  { id: 9, image: '/game/7.png', x: 100, y: 250, correctPosition: { x: 0, y: 100 } },
 ];
 
 const PuzzlePiece = ({ id, image, x, y }) => {
+
+  const[size, setsize]= useState(100);
+
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'PIECE',
     item: { id },
@@ -24,12 +49,30 @@ const PuzzlePiece = ({ id, image, x, y }) => {
     }),
   }));
 
+  useEffect(() => {
+    const updateDevice = () => {
+      if (window.innerWidth < 600) {
+        setsize(50);
+      } else if (window.innerWidth < 1200) {
+        setsize(80);
+      } else {
+        setsize(100);
+      }
+    };
+
+    updateDevice(); // Chạy ngay khi component mount
+    window.addEventListener('resize', updateDevice);
+
+    return () => window.removeEventListener('resize', updateDevice);
+  }, []);
+
   return (
     <div
       ref={drag}
+      className={`puzzle-piece piece-${id}`} // 🔥 Thêm class dựa vào id
       style={{
-        width: 100,
-        height: 100,
+        width: size,
+        height: size,
         backgroundImage: `url(${image})`,
         backgroundSize: 'cover',
         position: 'absolute',
@@ -43,14 +86,31 @@ const PuzzlePiece = ({ id, image, x, y }) => {
 };
 
 const PuzzleBoard = ({ pieces, setPieces, setIsComplete }) => {
-  const [, drop] = useDrop(() => ({
-    accept: 'PIECE',
-    drop: (item, monitor) => {
-      const clientOffset = monitor.getClientOffset();
+
+  const[size, setsize]= useState(80);
+  useEffect(() => {
+    const updateDevice = () => {
+      if (window.innerWidth < 600) {
+        setsize(50);
+      } else if (window.innerWidth < 1200) {
+        setsize(80);
+      } else {
+        setsize(100);
+      }
+    };
+
+    updateDevice(); // Chạy ngay khi component mount
+    window.addEventListener('resize', updateDevice);
+
+    return () => window.removeEventListener('resize', updateDevice);
+  }, []);
+  
+  const dropHandler = useCallback((item, monitor) => {
+    const clientOffset = monitor.getClientOffset();
 
       if (clientOffset) {
         const boardRect = document.getElementById('puzzle-board').getBoundingClientRect();
-        const cellSize = 100;
+        const cellSize = size;
         const offsetX = clientOffset.x - boardRect.left;
         const offsetY = clientOffset.y - boardRect.top;
 
@@ -70,8 +130,14 @@ const PuzzleBoard = ({ pieces, setPieces, setIsComplete }) => {
           });
         });
       }
-    },
-  }));
+  }, [size, setPieces]
+  );
+
+  // 🔥 useDrop được gọi với `dropHandler` từ `useCallback`
+  const [, drop] = useDrop({
+    accept: 'PIECE',
+    drop: dropHandler,
+  });
 
   useEffect(() => {
     const allCorrect = pieces.every((piece) => piece.isCorrect);
@@ -88,12 +154,12 @@ const PuzzleBoard = ({ pieces, setPieces, setIsComplete }) => {
           <div
             key={`${row}-${col}`}
             style={{
-              width: 100,
-              height: 100,
+              width: size,
+              height: size,
               border: '1px solid #ccc',
               position: 'absolute',
-              top: row * 100,
-              left: col * 100,
+              top: row * size,
+              left: col * size,
               boxSizing: 'border-box',
             }}
           />
@@ -108,8 +174,8 @@ const PuzzleBoard = ({ pieces, setPieces, setIsComplete }) => {
       id="puzzle-board"
       ref={drop}
       style={{
-        width: 300,
-        height: 300,
+        width: size*3,
+        height: size*3,
         position: 'relative',
         backgroundColor: '#f5f5f5',
         margin: 'auto',
@@ -130,9 +196,32 @@ const PuzzleBoard = ({ pieces, setPieces, setIsComplete }) => {
 };
 
 const PuzzleGame = ({ onComplete }) => {
+
   const [pieces, setPieces] = useState(
-    piecesData.map((piece) => ({ ...piece, isCorrect: false }))
+    piecesDataDesktop.map((piece) => ({ ...piece, isCorrect: false }))
   );
+
+  useEffect(() => {
+    const updateDevice = () => {
+      if (window.innerWidth < 600) {
+        setPieces(piecesDataMobile.map((piece) => ({ ...piece, isCorrect: false })));
+      } else if (window.innerWidth < 1200) {
+        setPieces(piecesDataTablet.map((piece) => ({ ...piece, isCorrect: false })));
+      } else {
+        setPieces(piecesDataDesktop.map((piece) => ({ ...piece, isCorrect: false })));
+      }
+    };
+
+    updateDevice(); // Chạy ngay khi component mount
+    window.addEventListener('resize', updateDevice);
+
+    return () => window.removeEventListener('resize', updateDevice);
+  }, []);
+
+  // const [pieces, setPieces] = useState(
+  //   piecesData.map((piece) => ({ ...piece, isCorrect: false }))
+  // );
+
   const [isComplete, setIsComplete] = useState(false);
   const [countdown, setCountdown] = useState(6); // Đếm ngược từ 6 giây
 

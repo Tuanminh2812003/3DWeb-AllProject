@@ -41,6 +41,10 @@ import { PiListStarFill } from "react-icons/pi";
 import { BsNewspaper } from "react-icons/bs";
 import { MdSkipNext } from "react-icons/md";
 import { MdSkipPrevious } from "react-icons/md";
+import { FaChevronUp } from "react-icons/fa6";
+import { FaChevronDown } from "react-icons/fa";
+import { FaChevronLeft } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 
 import PuzzleGame from "../GamePuzzle";
 
@@ -75,6 +79,20 @@ const modelsConfig = useMemo(
             scale: [1, 1, 1],
             clickable: false,
         },
+        {
+            path: "/NTST/Statue 2.glb",
+            position: [0, 0, 0],
+            rotation: [0, 0, 0],
+            scale: [1, 1, 1],
+            clickable: false,
+        },
+        {
+            path: "/NTST/Statue 3.glb",
+            position: [0, 0, 0],
+            rotation: [0, 0, 0],
+            scale: [1, 1, 1],
+            clickable: false,
+        },
         ],
         []
     );
@@ -93,26 +111,13 @@ const modelsConfig = useMemo(
 
     //game
     const [showPuzzleGame1, setShowPuzzleGame1] = useState(false);
-    const [showPuzzleGame2, setShowPuzzleGame2] = useState(false);
-    const [showPuzzleGame3, setShowPuzzleGame3] = useState(false);
     const [currentModelPath1, setCurrentModelPath1] = useState("/NTST/Question 1.glb");
-    const [currentModelPath2, setCurrentModelPath2] = useState("/NTST/Question 2.glb");
-    const [currentModelPath3, setCurrentModelPath3] = useState("/NTST/Question 3.glb");
     //game
-
 
     //hàm game
     const handlePuzzle1Complete = () => {
         setShowPuzzleGame1(false);
         setCurrentModelPath1("/NTST/Statue 1.glb"); // Thay đổi model thành Statue 1.glb sau chiến thắng
-    };
-    const handlePuzzle2Complete = () => {
-        setShowPuzzleGame2(false);
-        setCurrentModelPath2("/NTST/Statue 2.glb"); // Thay đổi model thành Statue 1.glb sau chiến thắng
-    };
-    const handlePuzzle3Complete = () => {
-        setShowPuzzleGame3(false);
-        setCurrentModelPath3("/NTST/Statue 3.glb"); // Thay đổi model thành Statue 1.glb sau chiến thắng
     };
 
     //hàm game
@@ -613,20 +618,6 @@ const modelsConfig = useMemo(
                                     scale={[1, 1, 1]}
                                     onClick={() => setShowPuzzleGame1(true)}
                                 />
-                                <ModelAnimated2
-                                    path={currentModelPath2} // Sử dụng trạng thái currentModelPath
-                                    position={[0, 0, 0]}
-                                    rotation={[0, 0, 0]}
-                                    scale={[1, 1, 1]}
-                                    onClick={() => setShowPuzzleGame2(true)}
-                                />
-                                <ModelAnimated2
-                                    path={currentModelPath3} // Sử dụng trạng thái currentModelPath
-                                    position={[0, 0, 0]}
-                                    rotation={[0, 0, 0]}
-                                    scale={[1, 1, 1]}
-                                    onClick={() => setShowPuzzleGame3(true)}
-                                />
                                 
                                 <ambientLight intensity={2.5} />
 
@@ -730,7 +721,7 @@ const modelsConfig = useMemo(
                                     onTouchEnd={() => handleControl('forward', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretUp />
+                                    <FaChevronUp />
                                 </button>
                             </div>
                             <div className='bottom'>
@@ -741,7 +732,7 @@ const modelsConfig = useMemo(
                                     onTouchEnd={() => handleControl('rotateLeft', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretLeft />
+                                    <FaChevronLeft />
                                 </button>
                                 <button
                                     onMouseDown={() => handleControl('backward', true)}
@@ -750,7 +741,7 @@ const modelsConfig = useMemo(
                                     onTouchEnd={() => handleControl('backward', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretDown />
+                                    <FaChevronDown />
                                 </button>
                                 <button
                                     onMouseDown={() => handleControl('rotateRight', true)}
@@ -759,7 +750,7 @@ const modelsConfig = useMemo(
                                     onTouchEnd={() => handleControl('rotateRight', false)}
                                     className='controler__button'
                                 >
-                                    <FaCaretRight />
+                                    <FaChevronRight />
                                 </button>
                             </div>
                         </div>
@@ -812,32 +803,6 @@ const modelsConfig = useMemo(
                                     ✕
                                 </button>
                                 <PuzzleGame onComplete={handlePuzzle1Complete} />
-                            </div>
-                        </div>
-                    )}
-                    {showPuzzleGame2 && (
-                        <div className="popup-overlay">
-                            <div className="popup-content">
-                                <button
-                                    className="close-popup"
-                                    onClick={() => setShowPuzzleGame2(false)}
-                                >
-                                    ✕
-                                </button>
-                                <PuzzleGame onComplete={handlePuzzle2Complete} />
-                            </div>
-                        </div>
-                    )}
-                    {showPuzzleGame3 && (
-                        <div className="popup-overlay">
-                            <div className="popup-content">
-                                <button
-                                    className="close-popup"
-                                    onClick={() => setShowPuzzleGame3(false)}
-                                >
-                                    ✕
-                                </button>
-                                <PuzzleGame onComplete={handlePuzzle3Complete} />
                             </div>
                         </div>
                     )}
