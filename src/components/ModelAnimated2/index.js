@@ -17,12 +17,21 @@ const ModelAnimated2 = memo(({ path, position = [0, 0, 0], rotation = [0, 0, 0],
 
   const { scene } = useThree();
 
+  const handlePointerOver = (e) => {
+    document.body.style.cursor = 'pointer';
+  };
+  const handlePointerOut = (e) => {
+      document.body.style.cursor = 'default';
+  };
+
   return (
     <group
       ref={group}
       position={position}
       rotation={rotation}
       scale={scale}
+      onPointerOver={handlePointerOver} 
+      onPointerOut={handlePointerOut}
       onClick={(e) => {
         e.stopPropagation();
         if (onClick) onClick(); // Gọi callback khi click

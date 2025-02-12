@@ -112,6 +112,7 @@ const modelsConfig = useMemo(
     //game
     const [showPuzzleGame1, setShowPuzzleGame1] = useState(false);
     const [currentModelPath1, setCurrentModelPath1] = useState("/NTST/Question 1.glb");
+    const [showGamePopup, setShowGamePopup] = useState(false); // 🔥 State kiểm soát popup game
     //game
 
     //hàm game
@@ -602,7 +603,7 @@ const modelsConfig = useMemo(
                                     position={[0, 0, 0]}
                                     rotation={[0, 0, 0]}
                                     scale={[1, 1, 1]}
-                                    videoUrl="/NTST/VR Gallery.mp4"
+                                    videoUrl="/NTST/video/videoplayback.mp4"
                                     mesh ="Game_Station_Screen_PROCESSED001"
                                 />
                                 <ModelAnimated2
@@ -610,6 +611,7 @@ const modelsConfig = useMemo(
                                     position={[0, 0, 0]}
                                     rotation={[0, 0, 0]}
                                     scale={[1, 1, 1]}
+                                    onClick={() => setShowGamePopup(true)}
                                 />
                                 <ModelAnimated2
                                     path={currentModelPath1} // Sử dụng trạng thái currentModelPath
@@ -617,6 +619,7 @@ const modelsConfig = useMemo(
                                     rotation={[0, 0, 0]}
                                     scale={[1, 1, 1]}
                                     onClick={() => setShowPuzzleGame1(true)}
+                                    
                                 />
                                 
                                 <ambientLight intensity={2.5} />
@@ -803,6 +806,35 @@ const modelsConfig = useMemo(
                                     ✕
                                 </button>
                                 <PuzzleGame onComplete={handlePuzzle1Complete} />
+                            </div>
+                        </div>
+                    )}
+                    {/* 🔥 Popup chứa game */}
+                    {showGamePopup && (
+                        <div className="popup-overlay" style={{
+                            alignItems: "center",
+                        }}>
+                            <div className="popup-content" style={{
+                                backgroundImage:"url('/game/screen.jpg')", 
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                padding: "30px",
+                            }}>
+                                <button
+                                    className="close-popup"
+                                    onClick={() => setShowGamePopup(false)}
+                                >
+                                    ✕
+                                </button>
+                                <iframe 
+                                    src="https://www.retrogames.cc/embed/43863-super-mario-2-1998-unl.html"
+                                    frameBorder="0"
+                                    allowFullScreen={true}
+                                    webkitallowfullscreen="true"
+                                    mozallowfullscreen="true"
+                                    scrolling="no"
+                                    className='game-iframe'
+                                ></iframe>
                             </div>
                         </div>
                     )}

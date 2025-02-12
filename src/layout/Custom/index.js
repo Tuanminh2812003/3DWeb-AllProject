@@ -613,7 +613,7 @@ const modelsConfig = useMemo(
                                     position={[0, 0, 0]}
                                     rotation={[0, 0, 0]}
                                     scale={[1, 1, 1]}
-                                    videoUrl="/NTST/video/finger click green screen videos Animation.mp4"
+                                    videoUrl="/NTST/video/videoplayback.mp4"
                                     mesh ="Game_Station_Screen_PROCESSED001"
                                 />
                                 <ModelAnimated2
