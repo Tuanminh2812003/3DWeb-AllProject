@@ -1,53 +1,3 @@
-import React, { useEffect, useRef } from "react";
-import { useLoader } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { Box3, Vector3, Group } from "three";
-
-const ManequinLoader = ({ modelPath, position = [0, 0, 0], rotation = [0, 0, 0], scale = [1, 1, 1], onModelClick }) => {
-  const model = useLoader(GLTFLoader, modelPath);
-  const groupRef = useRef(); // Ref cho group chứa model
-
-  useEffect(() => {
-    if (model && groupRef.current) {
-      const boundingBox = new Box3().setFromObject(model.scene);
-      const center = new Vector3();
-      const size = new Vector3();
-
-      boundingBox.getCenter(center);
-      boundingBox.getSize(size);
-
-      const pivot = new Group();
-      pivot.add(model.scene);
-
-      model.scene.position.set(-center.x, -boundingBox.min.y, -center.z);
-
-      groupRef.current.clear();
-      groupRef.current.add(pivot);
-    }
-  }, [model]);
-
-  const handlePointerOver = (e) => {
-    document.body.style.cursor = 'pointer';
-  };
-  const handlePointerOut = (e) => {
-      document.body.style.cursor = 'default';
-  };
-
-  return (
-    <group
-      ref={groupRef}
-      onClick={onModelClick}
-      position={position}
-      rotation={rotation.map((angle) => (angle * Math.PI) / 180)}
-      scale={scale}
-      onPointerOver={handlePointerOver} 
-      onPointerOut={handlePointerOut}
-    />
-  );
-};
-
-export default ManequinLoader;
-
 // import React, { useEffect, useRef } from "react";
 // import { useLoader } from "@react-three/fiber";
 // import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -55,33 +5,94 @@ export default ManequinLoader;
 
 // const ManequinLoader = ({ modelPath, position = [0, 0, 0], rotation = [0, 0, 0], scale = [1, 1, 1], onModelClick }) => {
 //   const model = useLoader(GLTFLoader, modelPath);
-//   const groupRef = useRef(); // Group giữ model với pivot chính xác
+//   const groupRef = useRef(); // Ref cho group chứa model
 
 //   useEffect(() => {
 //     if (model && groupRef.current) {
-//       const object3D = model.scene;
-//       const boundingBox = new Box3().setFromObject(object3D);
+//       const boundingBox = new Box3().setFromObject(model.scene);
 //       const center = new Vector3();
+//       const size = new Vector3();
+
 //       boundingBox.getCenter(center);
+//       boundingBox.getSize(size);
 
-//       // Đưa model về đúng tâm để không bị lệch khi scale
-//       object3D.position.sub(center);
+//       const pivot = new Group();
+//       pivot.add(model.scene);
 
-//       // Xóa model cũ và thêm vào group mới để giữ đúng vị trí
+//       model.scene.position.set(-center.x, -boundingBox.min.y, -center.z);
+
 //       groupRef.current.clear();
-//       groupRef.current.add(object3D);
+//       groupRef.current.add(pivot);
 //     }
-//   }, [model]); // Chạy lại khi model thay đổi
+//   }, [model]);
+
+//   const handlePointerOver = (e) => {
+//     document.body.style.cursor = 'pointer';
+//   };
+//   const handlePointerOut = (e) => {
+//       document.body.style.cursor = 'default';
+//   };
 
 //   return (
 //     <group
 //       ref={groupRef}
-//       position={position} // Giữ nguyên vị trí model
-//       rotation={rotation.map((angle) => (angle * Math.PI) / 180)} // Chuyển rotation từ độ sang radian
-//       scale={scale} // Chỉnh scale mà không ảnh hưởng vị trí
-//       onDoubleClick={onModelClick} // Double-click để mở file picker
+//       onClick={onModelClick}
+//       position={position}
+//       rotation={rotation.map((angle) => (angle * Math.PI) / 180)}
+//       scale={scale}
+//       onPointerOver={handlePointerOver} 
+//       onPointerOut={handlePointerOut}
 //     />
 //   );
 // };
 
 // export default ManequinLoader;
+
+import React, { useEffect, useRef } from "react";
+import { useLoader } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { Box3, Vector3, Group } from "three";
+
+const ManequinLoader = ({ modelPath, position = [0, 0, 0], rotation = [0, 0, 0], scale = [1, 1, 1], onModelClick }) => {
+  const model = useLoader(GLTFLoader, modelPath);
+  const groupRef = useRef(new Group()); // Ref giữ mannequin độc lập
+
+  useEffect(() => {
+    if (model && groupRef.current) {
+      const object3D = model.scene.clone(); // Clone để tránh lỗi khi có nhiều mannequins
+      const boundingBox = new Box3().setFromObject(object3D);
+      const center = new Vector3();
+      boundingBox.getCenter(center);
+
+      // Đưa pivot xuống đáy model
+      const minY = boundingBox.min.y;
+      object3D.position.set(-center.x, -minY, -center.z);
+
+      // Xóa model cũ và thêm model mới với pivot đúng
+      groupRef.current.clear();
+      groupRef.current.add(object3D);
+    }
+  }, [model]);
+
+  // Hiệu ứng khi hover chuột
+  const handlePointerOver = () => {
+    document.body.style.cursor = "pointer";
+  };
+  const handlePointerOut = () => {
+    document.body.style.cursor = "default";
+  };
+
+  return (
+    <group
+      ref={groupRef}
+      onDoubleClick={onModelClick} // Double-click để thay đổi model
+      position={position}
+      rotation={rotation.map((angle) => (angle * Math.PI) / 180)}
+      scale={scale}
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
+    />
+  );
+};
+
+export default ManequinLoader;
