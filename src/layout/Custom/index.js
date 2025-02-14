@@ -2,7 +2,6 @@ import React, { useState, lazy, Suspense, useEffect, useRef, useCallback, useMem
 import { Canvas, extend, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three'
 import { OrbitControls } from '@react-three/drei';
-import RectAreaLight from '../../components/RectAreaLight';
 
 // camera và move
 import { CameraProvider } from '../../helpers/CameraContext';
@@ -13,7 +12,6 @@ import CameraClick from '../../action/CameraClick';
 import { Vector3, Euler } from 'three';
 
 // môi trường và model
-import ModelLoader2 from '../../components/ModelLoader2/index'; // model tĩnh
 import ModelLoaderWithVideo from '../../components/ModelLoaderWithVideo';
 import ModelAnimated2 from '../../components/ModelAnimated2';
 import ManequinLoader from '../../components/ManequinLoader';
@@ -51,7 +49,9 @@ import { FaChevronRight } from "react-icons/fa";
 
 import { Environment } from '@react-three/drei';
 
-import PuzzleGame from "../GamePuzzle"
+import PuzzleGame from "../GamePuzzle";
+
+const ModelLoader2 = lazy(() => import('../../components/ModelLoader2'));
 
 // Extend THREE with custom geometries
 extend({ PlaneGeometry: THREE.PlaneGeometry, BoxGeometry: THREE.BoxGeometry });

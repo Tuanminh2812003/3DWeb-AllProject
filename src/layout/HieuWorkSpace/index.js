@@ -12,7 +12,7 @@ import { OrbitControls } from "@react-three/drei";
 
 // camera và move
 import { CameraProvider } from "../../helpers/CameraContext";
-import Movement3 from "../../action/Movement3/index";
+import Movement3 from "../../action/Movement2/index";
 
 import CameraClick from "../../action/CameraClick";
 import { Vector3, Euler } from "three";

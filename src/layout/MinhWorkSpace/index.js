@@ -10,23 +10,11 @@ import Movement2 from '../../action/Movement2/index';
 import CameraClick from '../../action/CameraClick';
 import { Vector3, Euler } from 'three';
 
-// môi trường và model
-import ModelLoader2 from '../../components/ModelLoader2/index'; // model tĩnh
-import ModelLoaderWithVideo from '../../components/ModelLoaderWithVideo';
-import ModelAnimated2 from '../../components/ModelAnimated2';
-
 import PictureFrame from '../../components/PictureFrame'; // hình ảnh
 import ResizeHandler from '../../action/ResizeElement2'; // responsive model
 import Minimap from '../../components/Minimap';
 
 import Particles from "./../../components/Particles/index";
-
-// pop up
-import ModelPopup from '../../components/ModelPopup';
-import PopUpHowToMove from '../../components/PopUpHowToMove';
-import PopUpAboutTheExhibition from '../../components/PopUpAboutTheExhibition';
-import PopUpListModel from '../../components/PopUpListModel';
-import PopUpUpdate from "../../components/PopUpUpdate"
 
 // icon
 import { MdOutlineZoomOutMap } from "react-icons/md";
@@ -46,9 +34,18 @@ import { FaChevronDown } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 
-import PuzzleGame from "../GamePuzzle";
-
 import { Environment } from '@react-three/drei';
+
+// Lazy load các thành phần để tránh tải tất cả cùng lúc
+const ModelLoader2 = lazy(() => import('../../components/ModelLoader2'));
+const ModelLoaderWithVideo = lazy(() => import('../../components/ModelLoaderWithVideo'));
+const ModelAnimated2 = lazy(() => import('../../components/ModelAnimated2'));
+const ModelPopup = lazy(() => import('../../components/ModelPopup'));
+const PopUpHowToMove = lazy(() => import('../../components/PopUpHowToMove'));
+const PopUpAboutTheExhibition = lazy(() => import('../../components/PopUpAboutTheExhibition'));
+const PopUpListModel = lazy(() => import('../../components/PopUpListModel'));
+const PopUpUpdate = lazy(() => import('../../components/PopUpUpdate'));
+const PuzzleGame = lazy(() => import('../GamePuzzle'));
 
 // Extend THREE with custom geometries
 extend({ PlaneGeometry: THREE.PlaneGeometry, BoxGeometry: THREE.BoxGeometry });
