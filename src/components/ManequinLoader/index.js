@@ -26,13 +26,22 @@ const ManequinLoader = ({ modelPath, position = [0, 0, 0], rotation = [0, 0, 0],
     }
   }, [model]);
 
+  const handlePointerOver = (e) => {
+    document.body.style.cursor = 'pointer';
+  };
+  const handlePointerOut = (e) => {
+      document.body.style.cursor = 'default';
+  };
+
   return (
     <group
       ref={groupRef}
-      onDoubleClick={onModelClick}
+      onClick={onModelClick}
       position={position}
       rotation={rotation.map((angle) => (angle * Math.PI) / 180)}
       scale={scale}
+      onPointerOver={handlePointerOver} 
+      onPointerOut={handlePointerOut}
     />
   );
 };

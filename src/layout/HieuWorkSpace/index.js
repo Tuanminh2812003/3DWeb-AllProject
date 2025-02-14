@@ -12,7 +12,7 @@ import { OrbitControls } from "@react-three/drei";
 
 // camera và move
 import { CameraProvider } from "../../helpers/CameraContext";
-import Movement3 from "../../action/Movement2/index";
+import Movement2 from "../../action/Movement2/index";
 
 import CameraClick from "../../action/CameraClick";
 import { Vector3, Euler } from "three";
@@ -677,7 +677,7 @@ function Custom() {
 							/>
 							{/* Chuyển đổi bộ điều khiển dựa trên controlMode */}
 							{controlMode === "user" && (
-								<Movement3
+								<Movement2
 									cameraPosition={cameraPosition}
 									cameraRotation={cameraRotation}
 									clicked={clicked}
