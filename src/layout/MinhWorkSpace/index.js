@@ -63,13 +63,6 @@ const modelsConfig = useMemo(
             clickable: false,
         },
         {
-            path: "/NTST/Manequin.glb",
-            position: [0, 0, 0],
-            rotation: [0, 0, 0],
-            scale: [1, 1, 1],
-            clickable: false,
-        },
-        {
             path: "/NTST/TV Bound.glb",
             position: [0, 0, 0],
             rotation: [0, 0, 0],
@@ -167,6 +160,8 @@ const modelsConfig = useMemo(
     const [paused, setPaused] = useState(false); // Thêm trạng thái paused
     const [tourPopupOpen, setTourPopupOpen] = useState(false); // <-- Added state for tour popup
     const [freeExploration, setFreeExploration] = useState(true); // <-- Added state for free exploration
+    const [showIntroVideo, setShowIntroVideo] = useState(false);
+    const videoRef = useRef(null);
     //tour
 
     // HÀM
@@ -280,6 +275,25 @@ const modelsConfig = useMemo(
     };
 
     //Tour
+
+    const handleStartVideo = () => {
+        setShowIntroVideo(true);
+        setTimeout(() => {
+            if (videoRef.current) {
+                videoRef.current.requestFullscreen().catch(err => console.log("Lỗi fullscreen:", err));
+                videoRef.current.play();
+            }
+        }, 500); // Chờ một chút để state cập nhật
+    };
+
+    const handleCloseVideo = () => {
+        setShowIntroVideo(false);
+        if (videoRef.current) {
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+        }
+    };
+
     const startTour = () => {
         setPaused(false);
         if (countdownInterval) {
@@ -489,7 +503,7 @@ const modelsConfig = useMemo(
         if (mode === 'free') {
             startFreeExploration();
         } else if (mode === 'tour') {
-            startTour();
+            handleStartVideo();
         } else if (mode === 'update') {
             setPopUpUpdate(true);
         }
@@ -688,7 +702,7 @@ const modelsConfig = useMemo(
                                 <div className='sidebarDisc__button__text'>Hướng dẫn di chuyển</div>
                                 <div className='sidebarDisc__button__btn'><RiDragMoveFill /></div>
                             </div>
-                            <div className='sidebarDisc__button' onClick={handleOpenPopUpUpdate}>
+                            <div className='sidebarDisc__button' onClick={handleStartVideo}>
                                 <div className='sidebarDisc__button__text'>Bắt đầu tham quan</div>
                                 <div className='sidebarDisc__button__btn'><SiAwesomelists /></div>
                             </div>
@@ -833,6 +847,16 @@ const modelsConfig = useMemo(
                                     className='game-iframe'
                                 ></iframe>
                             </div>
+                        </div>
+                    )}
+                    {/* Video toàn màn hình */}
+                    {showIntroVideo && (
+                        <div className="video-overlay">
+                            <video ref={videoRef} className="intro-video" onEnded={handleCloseVideo}>
+                                <source src="/NTST/VR Gallery.mp4" type="video/mp4" />
+                                Trình duyệt của bạn không hỗ trợ video.
+                            </video>
+                            <button className="close-video" onClick={handleCloseVideo}>✕</button>
                         </div>
                     )}
                 </div>
