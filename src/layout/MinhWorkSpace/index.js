@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense, useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useState, lazy, Suspense, useEffect, useRef, useCallback, useMemo, startTransition } from 'react';
 import { Canvas, extend, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -242,6 +242,12 @@ const modelsConfig = useMemo(
         setCameraPosition(new Vector3(position.x, position.y, position.z));
         setCameraRotation(new Euler(rotation.x, rotation.y, rotation.z));
     };
+
+    const handleShowPuzzleGame1 = () => {
+        startTransition(() => {
+          setShowPuzzleGame1(true);
+        });
+      };
 
     // hàm xử lý sự kiện hoàn tất di chuyển camera
     const handleCameraMoveComplete = () => {
@@ -629,7 +635,7 @@ const modelsConfig = useMemo(
                                     position={[0, 0, 0]}
                                     rotation={[0, 0, 0]}
                                     scale={[1, 1, 1]}
-                                    onClick={() => setShowPuzzleGame1(true)}
+                                    onClick={handleShowPuzzleGame1}
                                     
                                 />
                                 

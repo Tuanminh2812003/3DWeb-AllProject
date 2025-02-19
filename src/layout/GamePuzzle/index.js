@@ -51,7 +51,7 @@ const PuzzlePiece = ({ id, image, x, y }) => {
 
   useEffect(() => {
     const updateDevice = () => {
-      if (window.innerWidth < 600) {
+      if (window.innerWidth < 904) {
         setsize(50);
       } else if (window.innerWidth < 1200) {
         setsize(80);
@@ -90,7 +90,7 @@ const PuzzleBoard = ({ pieces, setPieces, setIsComplete }) => {
   const[size, setsize]= useState(80);
   useEffect(() => {
     const updateDevice = () => {
-      if (window.innerWidth < 600) {
+      if (window.innerWidth < 904) {
         setsize(50);
       } else if (window.innerWidth < 1200) {
         setsize(80);
@@ -203,7 +203,7 @@ const PuzzleGame = ({ onComplete }) => {
 
   useEffect(() => {
     const updateDevice = () => {
-      if (window.innerWidth < 600) {
+      if (window.innerWidth < 904) {
         setPieces(piecesDataMobile.map((piece) => ({ ...piece, isCorrect: false })));
       } else if (window.innerWidth < 1200) {
         setPieces(piecesDataTablet.map((piece) => ({ ...piece, isCorrect: false })));
