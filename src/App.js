@@ -12,10 +12,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/nghe-thuat-sang-tao' element={<MinhWorkSpace/>}/>
-        <Route path='/home' element={<Home/>}/>
-        <Route path='/custom' element={<Custom/>}/>
-        <Route path='/hieu' element={<Hieuworkspace/>}/>
+        <Route path='/3d/nghe-thuat-sang-tao' element={<MinhWorkSpace/>}/>
+        <Route path='/3d/home' element={<Home/>}/>
+        <Route path='/3d/custom' element={<Custom/>}/>
+        <Route path='/3d/hieu' element={<Hieuworkspace/>}/>
       </Routes>
     </>
   );
