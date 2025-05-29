@@ -12,6 +12,7 @@ import Vietdoodle from "./layout/Vietdoodle";
 import Dentroi from "./layout/virtouria/den.js";
 import QuocKhanh from "./layout/virtouria/quockhanh.js";
 import Gom from "./layout/virtouria/gom.js";
+import TestGom from "./layout/testGom";
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
       <Routes>
         <Route path='/nghe-thuat-sang-tao' element={<MinhWorkSpace/>}/>
         <Route path='/home' element={<Home/>}/>
+        <Route path='testgom' element={<TestGom/>}/>
         {slugs.map((slug) => (
           <Route key={slug} path={`/customspace/${slug}`} element={<Custom />} />
         ))}
