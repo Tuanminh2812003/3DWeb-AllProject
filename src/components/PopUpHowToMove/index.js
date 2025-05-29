@@ -2,10 +2,11 @@ import React from 'react';
 import Modal from '@mui/material/Modal';
 import { Box, Button } from '@mui/material';
 import "./PopUpHowToMove.css";
+import ButtonVR from "../ButtonVR";
 
-const PopUpHowToMove = ({ open, handleClose }) => {
+const PopUpHowToMove = ({ open, handleClose, link }) => {
     return (
-        <Modal open={open} onClose={() => handleClose('free')} BackdropProps={{ invisible: true }}>
+        <Modal open={open} onClose={() => handleClose('free')} BackdropProps={{ invisible: true }} >
             <Box 
                 sx={{
                     position: 'absolute',
@@ -57,18 +58,19 @@ const PopUpHowToMove = ({ open, handleClose }) => {
                         <img src='/NTST/HDSD3.png' className='popUpMove__content__content__inner__img'/>
                     </div>
                     <div className='popUpMove__content4' style={{ marginBottom: '40px', position: 'relative' }}>
-                        <Button
+                        {/* <Button
                             onClick={() => handleClose('tour')} 
                             className='button1'
                         >
-                            GUIDE TOUR
-                        </Button>
+                            BẮT ĐẦU TOUR
+                        </Button> */}
                         <Button 
                             onClick={() => handleClose('free')} 
                             className='button2'
                         >
                             BẮT ĐẦU TRẢI NGHIỆM
                         </Button>
+                        <ButtonVR link={link}/>
                     </div>
                 </div>
             </Box>

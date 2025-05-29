@@ -6,7 +6,7 @@ import CameraContext from '../../helpers/CameraContext';
 // Các khu vực bị giới hạn
 
 const restrictedAreaCenter = new THREE.Vector3(0, 0, 0); // Tọa độ trung tâm của vòng tròn
-const restrictedAreaRadius = 25; // Bán kính của khu vực giới hạn
+const restrictedAreaRadius = 100; // Bán kính của khu vực giới hạn
 
 const restrictedAreas = [
     //tranh
@@ -297,8 +297,8 @@ const Movement2 = ({ cameraPosition, cameraRotation, clicked, freeExploration })
         camera.rotation.set(0, yaw.current, 0);
         setYaw(camera.rotation.y);
 
-        camera.position.x = THREE.MathUtils.clamp(camera.position.x, -61, 61);
-        camera.position.z = THREE.MathUtils.clamp(camera.position.z, -25, 25);
+        camera.position.x = THREE.MathUtils.clamp(camera.position.x, -100, 100);
+        camera.position.z = THREE.MathUtils.clamp(camera.position.z, -100, 100);
 
         // In tọa độ người dùng
         console.log('Current Position:', camera.position);

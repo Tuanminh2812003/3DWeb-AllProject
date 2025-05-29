@@ -1,7 +1,7 @@
 import React, { useState, lazy, Suspense, useEffect, useRef, useCallback, useMemo, startTransition } from 'react';
 import { Canvas, extend, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Environment } from '@react-three/drei';
 
 // camera và move
 import { CameraProvider } from '../../helpers/CameraContext';
@@ -34,8 +34,6 @@ import { FaChevronUp } from "react-icons/fa6";
 import { FaChevronDown } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
-
-import { Environment } from '@react-three/drei';
 
 // Lazy load các thành phần để tránh tải tất cả cùng lúc
 const ModelLoader2 = lazy(() => import('../../components/ModelLoader2'));
@@ -575,7 +573,10 @@ const modelsConfig = useMemo(
                         toneMapping: THREE.ACESFilmicToneMapping,
                         // colorSpace: THREE.LinearSRGBColorSpace, // Use this instead of `sRGBEncoding`
                         antialias: true 
-                    }}>
+                    }}
+                    vr
+                    >
+
                         <Environment files="/hdri.jpg" background />
                         <Suspense fallback={null}>
                                 {/* Môi trường */}
@@ -780,7 +781,7 @@ const modelsConfig = useMemo(
                         onAudioEnded={handleAudioEnded} 
                         tourActive={tourActive} 
                     />
-                    <PopUpHowToMove open={showHowToMove} handleClose={handleCloseHowToMove} />
+                    <PopUpHowToMove open={showHowToMove} handleClose={handleCloseHowToMove} link="https://web-xr-livid.vercel.app/virtouria/bia" />
                     <PopUpAboutTheExhibition open={popUpAboutTheExhibition} handleClose={handleClosePopUpAboutTheExhibition} />
                     <PopUpUpdate open={popUpUpdate} onClose={handleClosePopUpUpdate} />
                     <PopUpListModel open={popUpListModel} onClose={handleClosePopUpListModel} items={items} onItemClick={handleListItemClick} /> {/* List Popup */}

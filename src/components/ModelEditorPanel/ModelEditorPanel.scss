@@ -1,0 +1,11 @@
+.model-editor{
+  position:fixed; right:20px; top:60px; width:260px; z-index:10000;
+  background:#fff; padding:14px; border-radius:8px;
+  box-shadow:0 4px 14px rgba(0,0,0,.15); font-family:sans-serif;
+}
+.row{display:flex; align-items:center; gap:6px; margin-bottom:10px;}
+.row span{width:90px;}
+.import-btn, .save-btn{display:block;width:100%;padding:6px 0;margin-top:10px;
+  border:none;border-radius:4px;cursor:pointer}
+.import-btn{background:#2196f3;color:#fff;}
+.save-btn{background:#4caf50;color:#fff;}
